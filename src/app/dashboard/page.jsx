@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <>
       <Layout>
-        <Typography paragraph>Hey!! I am From Uttar-pradesh</Typography>
+        <Typography paragraph>Hey!! I am From Bombay</Typography>
       </Layout>
     </>
   );

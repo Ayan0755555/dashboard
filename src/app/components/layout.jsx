@@ -27,6 +27,8 @@ import MessageIcon from "@mui/icons-material/Message";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SupportIcon from "@mui/icons-material/Support";
 import ArticleIcon from "@mui/icons-material/Article";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -35,6 +37,10 @@ function Layout(props) {
   const { children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  console.log("pathname", pathname);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -66,9 +72,26 @@ function Layout(props) {
           "Message",
           "Setting",
         ].map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem
+            key={text}
+            disablePadding
+            className={
+              pathname.startsWith("/" + text.toLowerCase())
+                ? "text-sky-600"
+                : "text-slate-700"
+            }
+            onClick={() => {
+              router.push("/" + text.toLowerCase());
+            }}
+          >
             <ListItemButton>
-              <ListItemIcon>
+              <ListItemIcon
+                className={
+                  pathname.startsWith("/" + text.toLowerCase())
+                    ? "text-sky-600"
+                    : "text-slate-700"
+                }
+              >
                 {index === 0 && <DashboardIcon />}
                 {index === 1 && <AnalyticsIcon />}
                 {index === 2 && <PeopleIcon />}
@@ -86,7 +109,13 @@ function Layout(props) {
         {["Support", "Contact", "Docs"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
+              <ListItemIcon
+                className={
+                  pathname.startsWith("/" + text.toLowerCase())
+                    ? "text-sky-600 bg-slate-100"
+                    : "text-slate-700"
+                }
+              >
                 {index === 0 && <SupportIcon />}
                 {index === 1 && <MailIcon />}
                 {index === 2 && <ArticleIcon />}
