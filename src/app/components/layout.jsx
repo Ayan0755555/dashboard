@@ -17,11 +17,22 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
+import logo from "./logo.png";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
+import PeopleIcon from "@mui/icons-material/People";
+import WorkIcon from "@mui/icons-material/Work";
+import MessageIcon from "@mui/icons-material/Message";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SupportIcon from "@mui/icons-material/Support";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const drawerWidth = 240;
 
-function SideNav(props) {
+function Layout(props) {
   const { window } = props;
+  const { children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -42,14 +53,28 @@ function SideNav(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+        <Image src={logo} height={50} width={75} alt="logo" className="ml-10" />
+      </Toolbar>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {[
+          "Dashboard",
+          "Analytics",
+          "Users",
+          "Projects",
+          "Message",
+          "Setting",
+        ].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 && <DashboardIcon />}
+                {index === 1 && <AnalyticsIcon />}
+                {index === 2 && <PeopleIcon />}
+                {index === 3 && <WorkIcon />}
+                {index === 4 && <MessageIcon />}
+                {index === 5 && <SettingsIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -58,11 +83,13 @@ function SideNav(props) {
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Support", "Contact", "Docs"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 && <SupportIcon />}
+                {index === 1 && <MailIcon />}
+                {index === 2 && <ArticleIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -84,6 +111,9 @@ function SideNav(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          bgcolor: "#ffffff",
+          color: "black",
+          height: "75px",
         }}
       >
         <Toolbar>
@@ -97,7 +127,7 @@ function SideNav(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -149,46 +179,19 @@ function SideNav(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <main>{children}</main>
       </Box>
     </Box>
   );
 }
 
-SideNav.propTypes = {
+Layout.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * Remove this when copying and pasting into your project.
    */
   window: PropTypes.func,
+  children: PropTypes.array,
 };
 
-export default SideNav;
+export default Layout;

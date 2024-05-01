@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   
+  const router = useRouter();
   return (
     <main>
          <div className="font-[sans-serif] bg-white text-white md:h-screen">
@@ -88,7 +90,8 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-12">
-              <button
+              <button onClick={()=>{router.push("/dashboard")}}
+
                 type="button"
                 className="w-max shadow-xl py-2.5 px-8 text-sm font-semibold rounded-md bg-transparent text-yellow-400 border border-yellow-400 focus:outline-none"
               >
